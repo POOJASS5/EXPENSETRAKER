@@ -1,17 +1,9 @@
 import React from "react";
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import loginContext from "../store/login-context";
+
 import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
-  const loginCtx = useContext(loginContext);
-
-  const logoutHandler = () => {
-    if (loginCtx.isLoggedIn) {
-      loginCtx.logout();
-    }
-  };
   return (
     <div className={classes.mainNav}>
       <nav>
@@ -51,10 +43,9 @@ const MainNavigation = () => {
           <li>
             <NavLink
               to="/login"
-              onClick={logoutHandler}
               className={({ isActive }) => (isActive ? classes.active : "")}
             >
-              {!loginCtx.isLoggedIn ? "Login" : "Logout"}
+              Login
             </NavLink>
           </li>
         </ul>
