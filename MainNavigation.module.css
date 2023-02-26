@@ -1,0 +1,27 @@
+.mainNav {
+    margin: 0;
+    padding: 0;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    border-bottom: 5px solid gray;
+  }
+
+  .mainNav nav {
+    text-align: left;
+  }
+
+  .mainNav li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 30px 0 30px;
+  }
+
+  .mainNav a {
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  .helper {
+    margin: 50px;
+  }
