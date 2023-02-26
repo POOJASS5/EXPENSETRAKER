@@ -1,23 +1,49 @@
 .item {
+
     padding: 10px 0 10px 0;
+
     display: flex;
+
     text-align: center;
+
   }
+
+
+
 
   .item .type, .item .amount {
+
     flex-basis: 20%;
+
   }
+
+
+
 
   .item .description {
+
     flex-basis: 40%;
+
   }
+
+
+
 
   .button {
+
     flex-basis: 20%;
+
     align-items: center;
+
   }
 
+
+
+
   .button button {
+
     margin: 0 5px 0 5px;
+
     font-weight: bold;
+
   }
