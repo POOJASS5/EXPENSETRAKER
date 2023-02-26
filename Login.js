@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import loginContext from "../store/login-context";
 
 import classes from "./Login.module.css";
 
@@ -8,6 +9,7 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+  const loginCtx = useContext(loginContext);
   const navigate = useNavigate();
 
   const accountHandler = () => {
@@ -42,7 +44,6 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-
       if (res.ok) {
         const data = await res.json();
         console.log("User Logged-In");
@@ -51,7 +52,8 @@ const Login = () => {
         setHaveAccount(true);
         emailRef.current.value = "";
         passwordRef.current.value = "";
-        navigate("/home");
+        loginCtx.login();
+        navigate("/profile");
       } else {
         const data = await res.json();
         throw data.error;
@@ -63,7 +65,7 @@ const Login = () => {
   return (
     <div className={classes.mainDiv}>
       <form className={classes.form} onSubmit={loginFormHandler}>
-        <input type="text" placeholder="email" ref={emailRef} />
+        <input type="email" placeholder="email" ref={emailRef} />
         <input type="password" placeholder="password" ref={passwordRef} />
         {!haveAccount && (
           <input
