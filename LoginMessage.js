@@ -1,16 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-
 import classes from "./LoginMessage.module.css";
-import loginContext from "../store/login-context";
 
 const LoginMessage = () => {
-  const loginCtx = useContext(loginContext);
-
-  const logoutHandler = () => {
-    loginCtx.logout();
-  };
-
   const verifyEmailHandler = async () => {
     try {
       const res = await fetch(
@@ -26,9 +18,7 @@ const LoginMessage = () => {
           },
         }
       );
-
       const data = await res.json();
-
       if (res.ok) {
         console.log(data.email);
       } else {
@@ -38,7 +28,6 @@ const LoginMessage = () => {
       console.log(err.message);
     }
   };
-
   return (
     <React.Fragment>
       <div className={classes.mainProfile}>
@@ -53,9 +42,6 @@ const LoginMessage = () => {
         </span>
       </div>
       <div className={classes.button}>
-        <button onClick={logoutHandler} className={classes.logout}>
-          Logout
-        </button>
         <button onClick={verifyEmailHandler} className={classes.logout}>
           Verify Email
         </button>
@@ -63,5 +49,4 @@ const LoginMessage = () => {
     </React.Fragment>
   );
 };
-
 export default LoginMessage;
