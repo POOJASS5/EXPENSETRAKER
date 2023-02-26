@@ -6,38 +6,29 @@ import "./App.css";
 import UserProfile from "./pages/UserProfile";
 import Expenses from "./pages/Expenses";
 import About from "./pages/About";
-import { useContext } from "react";
-import loginContext from "./store/login-context";
-import { ProfileContextProvider } from "./store/profile-context";
 import ForgotPassword from "./components/ForgotPassword";
+import { useSelector } from "react-redux";
 function App() {
-  const loginCtx = useContext(loginContext);
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   return (
     <>
       <MainNavigation />
       <Routes>
         <Route path="/" exact element={<Navigate replace to="/home" />}></Route>
         <Route path="/home" element={<Home />}></Route>
-        {loginCtx.isLoggedIn ? (
+        {isLoggedIn ? (
           <Route path="/expenses" element={<Expenses />} />
         ) : (
           <Route path="/expenses" element={<Navigate replace to="/login" />} />
         )}
 
         <Route path="/about" element={<About />} />
-        {loginCtx.isLoggedIn ? (
-          <Route
-            path="/profile"
-            element={
-              <ProfileContextProvider>
-                <UserProfile />
-              </ProfileContextProvider>
-            }
-          />
+
+        {isLoggedIn ? (
+          <Route path="/profile" element={<UserProfile />} />
         ) : (
           <Route path="/profile" element={<Navigate replace to="/login" />} />
         )}
-
         <Route path="/login" element={<Login />} />
         <Route path="/resetpassword" element={<ForgotPassword />} />
       </Routes>

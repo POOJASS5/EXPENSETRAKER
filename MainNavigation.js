@@ -1,13 +1,22 @@
 import React from "react";
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import loginContext from "../store/login-context";
+import { loginActions } from "../store/loginSlice";
 import classes from "./MainNavigation.module.css";
+
 const MainNavigation = () => {
-  const loginCtx = useContext(loginContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const expenseList = useSelector((state) => state.expense.expenses);
+
+  let expenseAmount = 0;
+  expenseList.forEach((expense) => {
+    expenseAmount += +expense.amount;
+  });
+
   const logoutHandler = () => {
-    loginCtx.logout();
+    dispatch(loginActions.logout());
     navigate("/login");
   };
   return (
@@ -56,11 +65,11 @@ const MainNavigation = () => {
           </li>
         </ul>
       </nav>
-      {loginCtx.isLoggedIn && (
-        <div className={classes.button}>
-          <button onClick={logoutHandler}>Logout</button>
-        </div>
-      )}
+
+      <div className={classes.button}>
+        {expenseAmount > 10000 && <button>Activate Premium</button>}
+        {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
+      </div>
     </div>
   );
 };

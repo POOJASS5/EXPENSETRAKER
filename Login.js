@@ -1,14 +1,20 @@
-import React, { useState, useRef, useContext } from "react";
+
+import React, { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import LoginMessage from "../components/LoginMessage";
-import loginContext from "../store/login-context";
+import { loginActions } from "../store/loginSlice";
+
 import classes from "./Login.module.css";
+
 const Login = () => {
   const [haveAccount, setHaveAccount] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const loginCtx = useContext(loginContext);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+
   const accountHandler = () => {
     setHaveAccount((prevState) => {
       return !prevState;
@@ -46,7 +52,7 @@ const Login = () => {
         console.log("User Logged-In");
         localStorage.setItem("idToken", JSON.stringify(data));
         setHaveAccount(true);
-        loginCtx.login();
+        dispatch(loginActions.login());
       } else {
         const data = await res.json();
         throw data.error;
@@ -55,9 +61,11 @@ const Login = () => {
       alert(err.message);
     }
   };
-  if (loginCtx.isLoggedIn) {
+
+  if (isLoggedIn) {
     return <LoginMessage />;
   }
+
   return (
     <div className={classes.wrapper}>
       <form className={classes.form} onSubmit={loginFormHandler}>

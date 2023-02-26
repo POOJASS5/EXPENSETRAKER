@@ -2,31 +2,39 @@ import React from "react";
 import classes from "./ExpenseItems.module.css";
 
 const ExpenseItems = (props) => {
-  const removeFromDatabase = async (id) => {
+  const editHandler = async () => {
     try {
       const res = await fetch(
-        `https://expense-tract-default-rtdb.firebaseio.com/${props.emailUrl}expenses/${id}.json`,
+        `https://expense-tract-default-rtdb.firebaseio.com/${props.emailUrl}expenses/${props.item.id}.json`,
         {
           method: "DELETE",
         }
       );
 
       if (res.ok) {
-        console.log("deleted successfully");
+        //console.log("deleted successfully");
+        props.edit(props.item);
       }
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const editHandler = () => {
-    removeFromDatabase(props.item.id);
-    props.edit(props.item);
-  };
-
-  const deleteHandler = () => {
-    removeFromDatabase(props.item.id);
-    props.deleted(props.item.id);
+  const deleteHandler = async () => {
+    try {
+      const res = await fetch(
+        `https://expense-tract-default-rtdb.firebaseio.com/${props.emailUrl}expenses/${props.item.id}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (res.ok) {
+        // console.log('deleted successfully');
+        props.deleted(props.item.id);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   return (
     <div className={classes.item}>
