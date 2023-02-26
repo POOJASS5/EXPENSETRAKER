@@ -1,16 +1,14 @@
 import React, { useState, useRef, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import loginContext from "../store/login-context";
 
 import classes from "./Login.module.css";
-
 const Login = () => {
   const [haveAccount, setHaveAccount] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const loginCtx = useContext(loginContext);
-  const navigate = useNavigate();
 
   const accountHandler = () => {
     setHaveAccount((prevState) => {
@@ -48,12 +46,8 @@ const Login = () => {
         const data = await res.json();
         console.log("User Logged-In");
         localStorage.setItem("idToken", data.idToken);
-        console.log(data.idToken);
         setHaveAccount(true);
-        emailRef.current.value = "";
-        passwordRef.current.value = "";
         loginCtx.login();
-        navigate("/profile");
       } else {
         const data = await res.json();
         throw data.error;
@@ -62,6 +56,22 @@ const Login = () => {
       alert(err.message);
     }
   };
+  if (loginCtx.isLoggedIn) {
+    return (
+      <div className={classes.mainProfile}>
+        <span className={classes.welcome}>
+          Welcome to Expense Tracker...!!!
+        </span>
+        <span className={classes.profile}>
+          <span>Your profile is incomplete.</span>
+          <Link to="/profile">
+            <b> Complete now</b>
+          </Link>
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className={classes.mainDiv}>
       <form className={classes.form} onSubmit={loginFormHandler}>
