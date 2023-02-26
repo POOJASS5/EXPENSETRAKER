@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import loginContext from "./login-context";
-
 const profileContext = React.createContext({
   name: "",
   photo: "",
@@ -8,18 +7,16 @@ const profileContext = React.createContext({
 });
 export const ProfileContextProvider = (props) => {
   const [userProfile, setUserProfile] = useState({ name: "", photo: "" });
-
   const loginCtx = useContext(loginContext);
-
   const updateProfile = async () => {
     try {
       // console.log('called');
       const res = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCCkbbq5tYi_gSrQ7IJ1BoZ1I4iWWjMMHI",
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAQs7bI7d64xgfIx12vFZcTVaM1c4_k08A",
         {
           method: "POST",
           body: JSON.stringify({
-            idToken: localStorage.getItem("idToken"),
+            idToken: JSON.parse(localStorage.getItem("idToken")).idToken,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -39,15 +36,12 @@ export const ProfileContextProvider = (props) => {
       console.log(err.message);
     }
   };
-
   const { isLoggedIn } = loginCtx;
-
   useEffect(() => {
     if (isLoggedIn) {
       updateProfile();
     }
   }, [isLoggedIn]);
-
   const profileContextValue = {
     name: userProfile.name,
     photo: userProfile.photo,

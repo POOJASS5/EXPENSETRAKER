@@ -2,9 +2,7 @@ import React, { useState, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import LoginMessage from "../components/LoginMessage";
 import loginContext from "../store/login-context";
-
 import classes from "./Login.module.css";
-
 const Login = () => {
   const [haveAccount, setHaveAccount] = useState(true);
   const emailRef = useRef();
@@ -19,10 +17,10 @@ const Login = () => {
   let url;
   if (haveAccount) {
     url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCCkbbq5tYi_gSrQ7IJ1BoZ1I4iWWjMMHI";
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAQs7bI7d64xgfIx12vFZcTVaM1c4_k08A";
   } else {
     url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCCkbbq5tYi_gSrQ7IJ1BoZ1I4iWWjMMHI";
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAQs7bI7d64xgfIx12vFZcTVaM1c4_k08A";
   }
   const loginFormHandler = async (e) => {
     e.preventDefault();
@@ -46,7 +44,7 @@ const Login = () => {
       if (res.ok) {
         const data = await res.json();
         console.log("User Logged-In");
-        localStorage.setItem("idToken", data.idToken);
+        localStorage.setItem("idToken", JSON.stringify(data));
         setHaveAccount(true);
         loginCtx.login();
       } else {
@@ -57,11 +55,9 @@ const Login = () => {
       alert(err.message);
     }
   };
-
   if (loginCtx.isLoggedIn) {
     return <LoginMessage />;
   }
-
   return (
     <div className={classes.wrapper}>
       <form className={classes.form} onSubmit={loginFormHandler}>
