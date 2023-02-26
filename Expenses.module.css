@@ -45,7 +45,11 @@
     padding: 5px 0 5px 0;
     font-size: 18px;
   }
-  
+
+  .button button:active {
+    transform: scale(0.95);
+  }
+
   .items {
     width: 650px;
     margin: auto;
@@ -61,17 +65,47 @@
     align-items: center;
     margin-bottom: 20px;
   }
-
+  
   .title span {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
   }
 
-  .title .titletype, .title .titleamount {
+  .title a {
+    flex-basis: 20%;
+    text-align: center;
+  }
+
+  .title .titletype,
+  .title .titleamount {
     flex-basis: 20%;
   }
 
   .title .titledescription {
     flex-basis: 40%;
+  }
+
+  .total {
+    margin: auto;
+    width: fit-content;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    background-color: black;
+    color: orange;
+    padding: 8px 20px 8px 20px;
+    border-radius: 5px;
+  }
+
+  .activate {
+    text-align: center;
+    margin-top: 20px;
+    box-sizing: border-box;
+  }
+
+  .activate button {
+    padding: 8px 20px 8px 20px;
+    font-size: 18px;
+    margin-right: 20px;
   }

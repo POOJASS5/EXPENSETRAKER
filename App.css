@@ -1,9 +1,10 @@
 body{
-
   margin: 0;
-
   padding: 0;
+}
 
-  background-color: #f4f4f4;
-
+.dark {
+  background-color: #312f2f;
+  color: white;
+  padding-bottom: 50px;
 }

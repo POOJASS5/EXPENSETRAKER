@@ -8,7 +8,7 @@
     box-sizing: border-box;
     box-shadow: 0 0 10px black;
   }
-
+  
   .formHead {
     margin: 0 0 10px 0;
   }
@@ -56,4 +56,7 @@
     color: white;
     background-color: #89764a;
     border: none;
+  }
+  .formBody button:active {
+    transform: scale(0.95);
   }

@@ -10,29 +10,33 @@ import ForgotPassword from "./components/ForgotPassword";
 import { useSelector } from "react-redux";
 function App() {
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const themeMode = useSelector((state) => state.theme.theme);
   return (
-    <>
+    <div className={themeMode === "dark" ? "dark" : ""}>
       <MainNavigation />
       <Routes>
         <Route path="/" exact element={<Navigate replace to="/home" />}></Route>
         <Route path="/home" element={<Home />}></Route>
-        {isLoggedIn ? (
-          <Route path="/expenses" element={<Expenses />} />
-        ) : (
-          <Route path="/expenses" element={<Navigate replace to="/login" />} />
-        )}
+
+        <Route
+          path="/expenses"
+          element={isLoggedIn ? <Expenses /> : <Navigate to="/login" replace />}
+        />
 
         <Route path="/about" element={<About />} />
 
-        {isLoggedIn ? (
-          <Route path="/profile" element={<UserProfile />} />
-        ) : (
-          <Route path="/profile" element={<Navigate replace to="/login" />} />
-        )}
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? <UserProfile /> : <Navigate to="/login" replace />
+          }
+        />
+
         <Route path="/login" element={<Login />} />
         <Route path="/resetpassword" element={<ForgotPassword />} />
       </Routes>
-    </>
+    </div>
   );
 }
+
 export default App;

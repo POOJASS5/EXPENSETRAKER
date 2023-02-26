@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./ExpenseItems.module.css";
-
 const ExpenseItems = (props) => {
   const editHandler = async () => {
     try {
@@ -10,7 +9,6 @@ const ExpenseItems = (props) => {
           method: "DELETE",
         }
       );
-
       if (res.ok) {
         //console.log("deleted successfully");
         props.edit(props.item);
@@ -19,7 +17,6 @@ const ExpenseItems = (props) => {
       console.log(err.message);
     }
   };
-
   const deleteHandler = async () => {
     try {
       const res = await fetch(
@@ -30,7 +27,7 @@ const ExpenseItems = (props) => {
       );
       if (res.ok) {
         // console.log('deleted successfully');
-        props.deleted(props.item.id);
+        props.deleted(props.item);
       }
     } catch (err) {
       console.log(err.message);
