@@ -1,44 +1,47 @@
-.mainDiv {
+.wrapper {
     margin: auto;
     margin-top: 150px;
   }
-  
+
   .form {
-    padding: 15px;
-    border: 2px solid #00eeff;
-    width: 400px;
+    padding: 30px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    width: 500px;
     margin: auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     box-sizing: border-box;
     text-align: center;
+    box-shadow: 0 0 10px black;
+
   }
-  
+
   .form input {
     display: block;
-    width: 96%;
+    width: 100%;
     padding: 5px;
     margin: 20px 0 20px 0;
   }
-  
+
   .form button {
-      margin: 10px 0 10px 0;
+      margin: 10px 0 30px 0;
       padding: 5px 0 5px 0;
-      width: 90%;
+      width: 70%;
       border-radius: 5px;
-      background-color: rgb(6, 129, 166);
   }
 
-  .form p {
-    cursor: pointer;
+  .form a{
+    display: block;
+    text-decoration: none;
+    margin-bottom: 10px;
   }
-  .login {
+  .create{
     box-sizing: border-box;
-    width: 400px;
-    border: 2px solid greenyellow;
+    width: fit-content;
     margin: auto;
     padding: 10px;
     cursor: pointer;
   }
-  .login {
+  .create {
     text-align: center;
   }

@@ -2,13 +2,10 @@ import React from "react";
 import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import loginContext from "../store/login-context";
-
 import classes from "./MainNavigation.module.css";
-
 const MainNavigation = () => {
   const loginCtx = useContext(loginContext);
   const navigate = useNavigate();
-
   const logoutHandler = () => {
     loginCtx.logout();
     navigate("/login");
@@ -27,10 +24,10 @@ const MainNavigation = () => {
           </li>
           <li>
             <NavLink
-              to="/product"
+              to="/expenses"
               className={({ isActive }) => (isActive ? classes.active : "")}
             >
-              Products
+              Expenses
             </NavLink>
           </li>
           <li>

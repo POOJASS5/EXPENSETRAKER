@@ -1,15 +1,16 @@
 import React, { useRef, useContext, useEffect } from "react";
 import classes from "./UserProfileForm.module.css";
 import profileContext from "../store/profile-context";
+import { useNavigate } from "react-router-dom";
 
 const UserProfileForm = () => {
   const profileCtx = useContext(profileContext);
   const nameRef = useRef();
   const photoRef = useRef();
+  const navigate = useNavigate();
 
   const profileSubmitHandler = async (event) => {
     event.preventDefault();
-
     try {
       // console.log('called');
       const res = await fetch(
@@ -30,6 +31,7 @@ const UserProfileForm = () => {
 
       const data = await res.json();
       if (res.ok) {
+        navigate("/home");
         profileCtx.update();
       } else {
         throw data.error;
@@ -42,7 +44,6 @@ const UserProfileForm = () => {
     nameRef.current.value = profileCtx.name;
     photoRef.current.value = profileCtx.photo;
   });
-
   return (
     <form className={classes.form} onSubmit={profileSubmitHandler}>
       <div className={classes.formHead}>

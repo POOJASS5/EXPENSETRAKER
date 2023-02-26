@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from "react";
-import ForgotPassword from "../components/ForgotPassword";
+import { Link } from "react-router-dom";
 import LoginMessage from "../components/LoginMessage";
 import loginContext from "../store/login-context";
 
@@ -7,7 +7,6 @@ import classes from "./Login.module.css";
 
 const Login = () => {
   const [haveAccount, setHaveAccount] = useState(true);
-  const [forgotPassword, setForgotPassword] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
@@ -59,21 +58,12 @@ const Login = () => {
     }
   };
 
-  const forgotPasswordHandler = () => {
-    setForgotPassword((preState) => {
-      return !preState;
-    });
-  };
-
   if (loginCtx.isLoggedIn) {
     return <LoginMessage />;
   }
-  if (forgotPassword) {
-    return <ForgotPassword changedPassword={forgotPasswordHandler} />;
-  }
 
   return (
-    <div className={classes.mainDiv}>
+    <div className={classes.wrapper}>
       <form className={classes.form} onSubmit={loginFormHandler}>
         <input type="email" placeholder="email" ref={emailRef} />
         <input type="password" placeholder="password" ref={passwordRef} />
@@ -87,13 +77,9 @@ const Login = () => {
         <button type="submit">
           {haveAccount ? "Login" : "Create Account"}
         </button>
-        {haveAccount ? (
-          <p onClick={forgotPasswordHandler}>Forgot Password?</p>
-        ) : (
-          ""
-        )}
+        {haveAccount ? <Link to="resetpassword">Forgot Password?</Link> : ""}
       </form>
-      <div className={classes.login} onClick={accountHandler}>
+      <div className={classes.create} onClick={accountHandler}>
         {haveAccount
           ? `Don't have an account? Sign Up`
           : `Have an account? Sign In`}
